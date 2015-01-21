@@ -1,0 +1,11 @@
+Package: rwantshue
+Title: What the Package Does (one line, title case)
+Version: 0.0.0.9000
+Authors@R: "First Last <first.last@example.com> [aut, cre]"
+Description: What the package does (one paragraph)
+Depends: R (>= 3.1.1)
+Imports:
+    V8 (>= 0.3),
+    jsonlite (>= 0.9.12)
+License: What license is it under?
+LazyData: true
