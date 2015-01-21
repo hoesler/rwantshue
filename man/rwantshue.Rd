@@ -4,8 +4,8 @@
 \name{rwantshue}
 \alias{rwantshue}
 \alias{rwantshue-package}
-\title{A wrapper to chroma.js.}
+\title{rwantshue is an R adaptor for the "I want hue" color palette generator}
 \description{
-A wrapper to chroma.js.
+rwantshue is an R adaptor for the "I want hue" color palette generator
 }
 
