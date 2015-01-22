@@ -2,11 +2,19 @@ Package: rwantshue
 Title: R adaptor for the "I want hue" color palette generator
 Version: 0.0.0.9000
 Authors@R: "Christoph Hösler <christoph.hoesler@gmail.com> [aut, cre]"
-Description: rwantshue is an R adaptor for the "I want hue" color palette generator
-Depends: R (>= 3.1.1)
-Imports: 
+Description: rwantshue is an R adaptor for the "I want hue" color palette
+    generator
+Depends:
+    R (>= 3.1.1)
+Imports:
     V8 (>= 0.3),
-    jsonlite (>= 0.9.12)
+    jsonlite (>= 0.9.12),
+    assertthat(>= 0.1)
 License: MIT
 LazyData: true
-Suggests: testthat
+Suggests:
+    testthat
+Collate:
+    'hcl.r'
+    'iwanthue.r'
+    'rwantshue.r'

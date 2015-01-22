@@ -1,3 +1,4 @@
+#' @include hcl.r
 NULL
 
 #' IWantHue palette generator.
@@ -12,12 +13,12 @@ IWantHue <- setRefClass("IWantHue",
 		v8$source(system.file("chroma.js", package = "rwantshue"))
 		v8$source(system.file("chroma.palette-gen.js", package = "rwantshue"))
 		v8$source(system.file("lodash.js", package = "rwantshue"))
-		v8$eval("iwanthue = function(n, force_mode, quality, js_color_mapper) {
+		v8$eval("iwanthue = function(n, force_mode, quality, js_color_mapper, color_space) {
 			filter_colors = function(color) {
 			    var hcl = color.hcl();
-			    return hcl[0]>=0 && hcl[0]<=360
-			      && hcl[1]>=0 && hcl[1]<=3
-			      && hcl[2]>=0 && hcl[2]<=1.5;
+			    return hcl[0] >= color_space[0][0] && hcl[0] <= color_space[0][1]
+			      && hcl[1] >= color_space[1][0] && hcl[1] <= color_space[1][1]
+			      && hcl[2] >= color_space[2][0] && hcl[2] <= color_space[2][1];
 			}
 			var colors = paletteGenerator.generate(n, filter_colors, force_mode, quality);
 			colors = paletteGenerator.diffSort(colors);
@@ -25,9 +26,14 @@ IWantHue <- setRefClass("IWantHue",
 			return JSON.stringify(colors);
 		}")
   	},
-  	palette = function(n = 8, force_mode = FALSE, quality = 50, js_color_mapper = I("function(color) { return color.hex(); }")) {
+  	palette = function(n = 8, force_mode = FALSE, quality = 50, color_space = hcl_presets$fancy_light,
+  		js_color_mapper = I("function(color) { return color.hex(); }")) {
   		"Generate a new iwanthue palette"
-  		json <- v8$call("iwanthue", n, force_mode, quality, js_color_mapper)
+  		assert_that(is.numeric(n))
+  		assert_that(is.logical(force_mode))
+  		assert_that(is.numeric(quality))
+  		assert_that(is.hcl(color_space))
+  		json <- v8$call("iwanthue", as.integer(n), force_mode, as.integer(quality), js_color_mapper, color_space)
   		fromJSON(json)
   	},
     hex = function(...) {

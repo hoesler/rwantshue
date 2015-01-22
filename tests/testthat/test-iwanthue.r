@@ -48,3 +48,14 @@ test_that("rgb creates the correct number of colors", {
   # then
   expect_equal(nrow(palette), n)
 })
+
+test_that("palette method aceepts a valid color space", {
+  # given 
+  scheme <- iwanthue()
+  
+  # when
+  palette <- scheme$palette(color_space = list(c(0, 360), c(0, 3), c(0, 1.5)))
+
+  # then
+  expect_is(palette, "character")
+})

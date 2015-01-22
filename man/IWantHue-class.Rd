@@ -19,6 +19,7 @@ IWantHue palette generator.
 \item{\code{hex(...)}}{Generate a vector of colors in hex format}
 
 \item{\code{palette(n = 8, force_mode = FALSE, quality = 50,
+  color_space = hcl_presets$fancy_light,
   js_color_mapper = I("function(color) { return color.hex(); }"))}}{Generate a new iwanthue palette}
 
 \item{\code{rgb(...)}}{Generate a matrix of colors in rgb format}
