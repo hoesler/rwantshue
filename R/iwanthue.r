@@ -43,7 +43,7 @@ IWantHue <- setRefClass("IWantHue",
 	},
 	rgb = function(...) {
 		"Generate a matrix of colors in rgb format"
-		.self$palette(..., js_color_mapper = I("function(color) { return color.rgb; }"))
+		.self$palette(..., js_color_mapper = "function(color) { return color.rgb; }")
 	}
   )
 )
