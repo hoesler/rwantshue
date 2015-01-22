@@ -1,11 +1,12 @@
 Package: rwantshue
-Title: What the Package Does (one line, title case)
+Title: R adaptor for the "I want hue" color palette generator
 Version: 0.0.0.9000
-Authors@R: "First Last <first.last@example.com> [aut, cre]"
-Description: What the package does (one paragraph)
+Authors@R: "Christoph Hösler <christoph.hoesler@gmail.com> [aut, cre]"
+Description: rwantshue is an R adaptor for the "I want hue" color palette generator
 Depends: R (>= 3.1.1)
-Imports:
+Imports: 
     V8 (>= 0.3),
     jsonlite (>= 0.9.12)
-License: What license is it under?
+License: MIT
 LazyData: true
+Suggests: testthat
