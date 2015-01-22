@@ -27,13 +27,14 @@ IWantHue <- setRefClass("IWantHue",
 		}")
   	},
   	palette = function(n = 8, force_mode = FALSE, quality = 50, color_space = hcl_presets$fancy_light,
-  		js_color_mapper = I("function(color) { return color.hex(); }")) {
+  		js_color_mapper = "function(color) { return color.hex(); }") {
   		"Generate a new iwanthue palette"
-  		assert_that(is.numeric(n))
-  		assert_that(is.logical(force_mode))
-  		assert_that(is.numeric(quality))
+  		assert_that(is.numeric(n), length(n) == 1)
+  		assert_that(is.logical(force_mode), length(force_mode) == 1)
+  		assert_that(is.numeric(quality), length(quality) == 1)
   		assert_that(is.hcl(color_space))
-  		json <- v8$call("iwanthue", as.integer(n), force_mode, as.integer(quality), js_color_mapper, color_space)
+  		assert_that(is.character(js_color_mapper))
+  		json <- v8$call("iwanthue", as.integer(n), force_mode, as.integer(quality), I(js_color_mapper), color_space)
   		fromJSON(json)
   	},
     hex = function(...) {
