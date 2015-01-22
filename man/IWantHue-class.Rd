@@ -11,6 +11,13 @@ IWantHue palette generator.
 \section{Fields}{
 
 \describe{
-\item{\code{v8}}{The V8 engine context.}
+\item{\code{v8}}{The V8 context.}
+}}
+\section{Methods}{
+
+\describe{
+\item{\code{hex(...)}}{Generate a vector of colors in hex format}
+
+\item{\code{rgb(...)}}{Generate a matrix of colors in rgb format}
 }}
 
