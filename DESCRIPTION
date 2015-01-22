@@ -1,7 +1,7 @@
 Package: rwantshue
 Encoding: UTF-8
 Title: R adaptor for the "I want hue" color palette generator
-Version: 0.0.0.9000
+Version: 0.0.1
 Authors@R: "Christoph Hösler <christoph.hoesler@gmail.com> [aut, cre]"
 Description: rwantshue is an R adaptor for the "I want hue" color palette
     generator
