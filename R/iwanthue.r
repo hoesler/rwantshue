@@ -25,17 +25,18 @@ IWantHue <- setRefClass("IWantHue",
 			return JSON.stringify(colors);
 		}")
   	},
-  	iwanthue = function(n = 8, force_mode = FALSE, quality = 50, js_color_mapper) {
+  	palette = function(n = 8, force_mode = FALSE, quality = 50, js_color_mapper = I("function(color) { return color.hex(); }")) {
+  		"Generate a new iwanthue palette"
   		json <- v8$call("iwanthue", n, force_mode, quality, js_color_mapper)
   		fromJSON(json)
   	},
     hex = function(...) {
 	  	"Generate a vector of colors in hex format"
-	  	.self$iwanthue(..., js_color_mapper = I("function(color) { return color.hex(); }"))	  	
+	  	.self$palette(...)	  	
 	},
 	rgb = function(...) {
 		"Generate a matrix of colors in rgb format"
-		.self$iwanthue(..., js_color_mapper = I("function(color) { return color.rgb; }"))
+		.self$palette(..., js_color_mapper = I("function(color) { return color.rgb; }"))
 	}
   )
 )
