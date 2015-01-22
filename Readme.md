@@ -12,5 +12,5 @@ devtools::install_github("hoesler/rwantshue")
 ## Usage
 ```
 scheme <- iwanthue()
-palette <- scheme$hex(n = 8, force_mode = FALSE, quality = 50)
+palette <- scheme$hex(n = 8, force_mode = FALSE, quality = 50, color_space = hcl_presets$fancy_light)
 ```
