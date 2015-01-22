@@ -2,10 +2,10 @@ context("iwanthue")
 
 test_that("iwanthue creates a vector of hex values", {
   # given 
-  generator <- iwanthue()
+  scheme <- iwanthue()
   
   # when
-  palette <- generator$generate()
+  palette <- scheme$hex()
 
   # then
   expect_is(palette, "character")
@@ -14,11 +14,11 @@ test_that("iwanthue creates a vector of hex values", {
 
 test_that("iwanthue creates the correct number of colors", {
   # given 
-  generator <- iwanthue()
+  scheme <- iwanthue()
   n <- 10
   
   # when
-  palette <- generator$generate(n)
+  palette <- scheme$hex(n)
 
   # then
   expect_equal(length(palette), n)

@@ -11,6 +11,6 @@ devtools::install_github("hoesler/rwantshue")
 
 ## Usage
 ```
-generator <- iwanthue()
-palette <- generator$generate(n = 8, force_mode = FALSE, quality = 50)
+scheme <- iwanthue()
+palette <- scheme$hex(n = 8, force_mode = FALSE, quality = 50)
 ```

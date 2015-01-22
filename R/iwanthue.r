@@ -13,7 +13,7 @@ IWantHue <- setRefClass("IWantHue",
 		v8$source(system.file("chroma.palette-gen.js", package = "rwantshue"))
 		v8$source(system.file("lodash.js", package = "rwantshue"))
   	},
-    generate = function(n = 8, force_mode = FALSE, quality = 50, ...) {
+    hex = function(n = 8, force_mode = FALSE, quality = 50, ...) {
 	  	js_code <- sprintf("
 			filter_colors = function(color) {
 			    var hcl = color.hcl();

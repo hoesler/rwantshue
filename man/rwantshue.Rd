@@ -4,8 +4,8 @@
 \name{rwantshue}
 \alias{rwantshue}
 \alias{rwantshue-package}
-\title{rwantshue is an R adaptor for the "I want hue" color palette generator}
+\title{rwantshue is a R adaptor for the "I want hue" color palette generator}
 \description{
-rwantshue is an R adaptor for the "I want hue" color palette generator
+rwantshue is a R adaptor for the "I want hue" color palette generator
 }
 
