@@ -11,7 +11,7 @@ Imports:
     V8 (>= 0.3),
     jsonlite (>= 0.9.12),
     assertthat(>= 0.1)
-License: MIT
+License: file LICENSE
 LazyData: true
 Suggests:
     testthat
