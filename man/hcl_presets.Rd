@@ -4,7 +4,11 @@
 \name{hcl_presets}
 \alias{hcl_presets}
 \title{A list of color space presets as defined in \url{http://tools.medialab.sciences-po.fr/iwanthue/js/presets.js}.}
-\format{\preformatted{List of 16
+\format{\preformatted{List of 17
+ $ full        :List of 3
+  ..$ : num [1:2] 0 360
+  ..$ : num [1:2] 0 3
+  ..$ : num [1:2] 0 1.5
  $ fancy_light :List of 3
   ..$ : num [1:2] 0 360
   ..$ : num [1:2] 0.4 1.2

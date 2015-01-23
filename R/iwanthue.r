@@ -26,7 +26,7 @@ IWantHue <- setRefClass("IWantHue",
 			return JSON.stringify(colors);
 		}")
   	},
-  	palette = function(n = 8, force_mode = FALSE, quality = 50, color_space = hcl_presets$fancy_light,
+  	palette = function(n = 8, force_mode = FALSE, quality = 50, color_space = hcl_presets$full,
   		js_color_mapper = "function(color) { return color.hex(); }") {
   		"Generate a new iwanthue palette"
   		assert_that(is.numeric(n), length(n) == 1)
