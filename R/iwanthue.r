@@ -35,7 +35,7 @@ IWantHue <- setRefClass("IWantHue",
   		assert_that(is.hcl(color_space))
   		assert_that(is.character(js_color_mapper))
   		json <- v8$call("iwanthue", as.integer(n), force_mode, as.integer(quality), I(js_color_mapper), color_space)
-  		fromJSON(json)
+  		jsonlite::fromJSON(json)
   	},
     hex = function(...) {
 	  	"Generate a vector of colors in hex format"
@@ -48,9 +48,20 @@ IWantHue <- setRefClass("IWantHue",
   )
 )
 
+#' The environemnt that holds a IWantHue instance
+singletonEnv <- new.env()
+
+#' IWantHue instance accessor
+inwanthueInstance <- function() {
+	if (!exists("IWantHueInstance", envir = singletonEnv)) {
+		assign("IWantHueInstance", IWantHue$new(V8::new_context()), envir = singletonEnv)
+	}
+	get("IWantHueInstance", envir = singletonEnv)
+}
+
 #' Create a new \linkS4class{IWantHue} object.
 #' 
 #' @export
 iwanthue <- function() {
-	IWantHue$new(new_context())
+	inwanthueInstance()
 }
