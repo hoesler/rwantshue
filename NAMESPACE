@@ -2,7 +2,6 @@
 
 export(hcl_presets)
 export(iwanthue)
-exportClasses(IWantHue)
 import(V8)
 import(assertthat)
 import(jsonlite)

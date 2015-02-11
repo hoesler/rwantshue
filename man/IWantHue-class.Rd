@@ -16,12 +16,6 @@ IWantHue palette generator.
 \section{Methods}{
 
 \describe{
-\item{\code{hex(...)}}{Generate a vector of colors in hex format}
-
-\item{\code{palette(n = 8, force_mode = FALSE, quality = 50,
-  color_space = hcl_presets$full,
-  js_color_mapper = "function(color) { return color.hex(); }")}}{Generate a new iwanthue palette}
-
-\item{\code{rgb(...)}}{Generate a matrix of colors in rgb format}
+\item{\code{palette(n, force_mode, quality, color_space, js_color_mapper)}}{Generate a new iwanthue palette}
 }}
 

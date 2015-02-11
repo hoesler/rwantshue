@@ -1,11 +1,8 @@
 context("iwanthue")
 
-test_that("hex creates a vector of hex values", {
-  # given 
-  scheme <- iwanthue()
-  
+test_that("hex creates a vector of hex values", { 
   # when
-  palette <- scheme$hex()
+  palette <- iwanthue()
 
   # then
   expect_is(palette, "character")
@@ -14,22 +11,18 @@ test_that("hex creates a vector of hex values", {
 
 test_that("hex creates the correct number of colors", {
   # given 
-  scheme <- iwanthue()
   n <- 10
   
   # when
-  palette <- scheme$hex(n)
+  palette <- iwanthue(n)
 
   # then
   expect_equal(length(palette), n)
 })
 
-test_that("rgb creates a matrix of 3 rgb values", {
-  # given 
-  scheme <- iwanthue()
-  
+test_that("rgb creates a matrix of 3 rgb values", { 
   # when
-  palette <- scheme$rgb()
+  palette <- iwanthue(mode = "rgb")
 
   # then
   expect_is(palette, "matrix")
@@ -39,22 +32,18 @@ test_that("rgb creates a matrix of 3 rgb values", {
 
 test_that("rgb creates the correct number of colors", {
   # given 
-  scheme <- iwanthue()
   n <- 10
   
   # when
-  palette <- scheme$rgb(n)
+  palette <- iwanthue(n, mode = "rgb")
 
   # then
   expect_equal(nrow(palette), n)
 })
 
-test_that("palette method aceepts a valid color space", {
-  # given 
-  scheme <- iwanthue()
-  
+test_that("palette method aceepts a valid color space", { 
   # when
-  palette <- scheme$palette(color_space = list(c(0, 360), c(0, 3), c(0, 1.5)))
+  palette <- iwanthue(color_space = list(c(0, 360), c(0, 3), c(0, 1.5)))
 
   # then
   expect_is(palette, "character")

@@ -4,7 +4,7 @@
 \name{singletonEnv}
 \alias{singletonEnv}
 \title{The environemnt that holds a IWantHue instance}
-\format{\preformatted{<environment: 0x7f8510d7e918> 
+\format{\preformatted{<environment: 0x7f850fce1e40> 
 }}
 \usage{
 singletonEnv
