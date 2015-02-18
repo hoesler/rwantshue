@@ -25,13 +25,22 @@ IWantHue <- setRefClass("IWantHue",
 			return JSON.stringify(colors);
 		}")
   	},
-  	palette = function(n, force_mode, quality, color_space, js_color_mapper) {
+  	palette = function(n, force_mode, quality, color_space, mode, alpha) {
   		"Generate a new iwanthue palette"
   		assert_that(is.numeric(n), length(n) == 1)
   		assert_that(is.logical(force_mode), length(force_mode) == 1)
   		assert_that(is.numeric(quality), length(quality) == 1)
   		assert_that(is.hcl(color_space))
-  		assert_that(is.character(js_color_mapper))
+  		assert_that(is.character(mode))
+
+		js_color_mapper <- if (mode == "hex") {
+			"function(color) { return color.hex(); }"
+		} else if (mode == "rgb") {
+			"function(color) { return color.rgb; }"
+		} else {
+			stop("Unsupported mode: ", mode)
+		}
+
   		json <- v8$call("iwanthue", as.integer(n), force_mode, as.integer(quality), I(js_color_mapper), color_space)
   		jsonlite::fromJSON(json)
   	}
@@ -60,14 +69,23 @@ inwanthueInstance <- function() {
 #' @return a new color palette of length \code{n}. Depending on the \code{mode}, the returned object is a vector (hex) or a matrix (rgb).
 #' 
 #' @export
-iwanthue <- function(n = 8, force_mode = FALSE, quality = 50, color_space = hcl_presets$full, mode = "hex") {
-	scheme <- inwanthueInstance()
-	js_color_mapper <- if (mode == "hex") {
-		"function(color) { return color.hex(); }"
-	} else if (mode == "rgb") {
-		"function(color) { return color.rgb; }"
+iwanthue <- function(n = 8, force_mode = FALSE, quality = 50, color_space = hcl_presets$full, mode = "hex", alpha = 1) {
+	assert_that(is.numeric(n), length(n) == 1)
+	assert_that(is.logical(force_mode), length(force_mode) == 1)
+	assert_that(is.numeric(quality), length(quality) == 1)
+	if (is.character(color_space)) {
+		assert_that(length(color_space) == 1)
+		if (color_space %in% names(hcl_presets)) {
+			color_space <- hcl_presets[color_space]
+		} else {
+			stop("No preset defined for ", color_space)
+		}
 	} else {
-		stop("Unsupported mode: ", mode)
+		assert_that(is.hcl(color_space))
 	}
-	scheme$palette(n, force_mode, quality, color_space, js_color_mapper)
+	assert_that(is.character(mode), length(mode) == 1)
+	assert_that(is.numeric(alpha), length(alpha) == 1, alpha >= 0, alpha <= 1)
+
+	scheme <- inwanthueInstance()
+	scheme$palette(n, force_mode, quality, color_space, mode, alpha)
 }

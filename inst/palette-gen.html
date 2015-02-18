@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Palette Gen Test</title>
+</head>
+
+<script type="text/javascript" src="chroma_1.6.2.js"></script>
+<script type="text/javascript" src="chance.min.js"></script>
+<script type="text/javascript" src="lodash.js"></script>
+
+<script type="text/javascript" src="chroma.palette-gen.new.js"></script>
+
+<script type="text/javascript">
+	normalize_lch = function(lch) {
+		// normalize output of chroma.lch() to [0,100] [0,100] [0,360]
+		var l = lch[0] / 1.0000000386666655;
+	    var c = lch[1] / 1.3380761485376166;
+		var h = ((lch[2] + 360) % 360);
+		return [l, c, h];
+	}
+
+	iwanthue = function(n, force_mode, quality, js_color_mapper, color_space) {
+			filter_colors = function(color) {
+			    var lch = color.lch();
+			    var normalized_lch = normalize_lch(lch);
+
+			    // normalize
+			    var l = normalized_lch[0];
+			    var c = normalized_lch[1];
+			    var h = normalized_lch[2];
+
+			    var l_lower = color_space[0][0];
+			    var l_upper = color_space[0][1];
+			    var c_lower = color_space[1][0];
+			    var c_upper = color_space[1][1];
+			    var h_lower = color_space[2][0];
+			    var h_upper = color_space[2][1];
+
+			    return l >= l_lower && l <= l_upper &&
+			    	c >= c_lower && c <= c_upper &&
+			    	h >= h_lower && h <= h_upper;
+			}
+			var colors = paletteGenerator.generate(n, filter_colors, force_mode, quality);
+			colors = paletteGenerator.diffSort(colors);
+			colors = _.map(colors, js_color_mapper);
+			return JSON.stringify(colors);
+		}
+
+	palette = iwanthue(8, false, 50, function(color) { return color.hex(); }, [[0, 100], [0, 100], [0, 360]])
+	alert(palette)
+</script>
+<body>
+
+</body>
+</html>
