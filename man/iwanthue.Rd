@@ -4,22 +4,18 @@
 \alias{iwanthue}
 \title{Generate a new iwanthue palette}
 \usage{
-iwanthue(n = 8, force_mode = FALSE, quality = 50,
-  color_space = hcl_presets$full, mode = "hex")
+iwanthue(n = 8, color_space = list(L = c(0, 100), C = c(0, 100), H = c(0,
+  360)), mode = "ga", ...)
 }
 \arguments{
 \item{n}{number of colors in the palette.}
 
-\item{force_mode}{use force vector algorithm instead of k-means.}
-
-\item{quality}{the number of steps the algorithm should try to improve the color palette.}
-
 \item{color_space}{the upper and lower limts of the hcl colors to put in the palette. Expects a list of three numerics (See \code{\link{hcl_presets}}).}
 
-\item{mode}{the mode of the returned colors. Supported are "hex" (default) and "rgb" at the moment.}
+\item{mode}{the algorithm to use.}
 }
 \value{
-a new color palette of length \code{n}. Depending on the \code{mode}, the returned object is a vector (hex) or a matrix (rgb).
+a new rgb hex color palette of length \code{n}.
 }
 \description{
 Generate a new iwanthue palette

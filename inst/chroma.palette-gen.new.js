@@ -46,9 +46,9 @@ var paletteGenerator = {
 			
 			// Init
 			var vectors = {};
+			var chance = new Chance();
 			for(i=0; i<colorsCount; i++) {
 				// Find a valid Lab color 
-				var chance = new Chance();
 				var color;
 				do {
 					color = [chance.integer({min: 0, max: 100}),
@@ -131,9 +131,9 @@ var paletteGenerator = {
 			}
 			
 			var kMeans = [];
+			var chance = new Chance();
 			for(i=0; i<colorsCount; i++) {
 				// Find a valid Lab color 
-				var chance = new Chance();
 				var color;
 				do {
 					color = [chance.integer({min: 0, max: 100}), // l of chroma.lab() in [0, 100.00000386666655]

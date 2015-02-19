@@ -1,4 +1,5 @@
-#' @include hcl.r
+#' @include color_space.r
+#' @include iwanthue_native.r
 NULL
 
 #' IWantHue palette generator.
@@ -12,36 +13,27 @@ IWantHue <- setRefClass("IWantHue",
 		v8$source(system.file("chroma.js", package = "rwantshue"))
 		v8$source(system.file("chroma.palette-gen.js", package = "rwantshue"))
 		v8$source(system.file("lodash.js", package = "rwantshue"))
-		v8$eval("iwanthue = function(n, force_mode, quality, js_color_mapper, color_space) {
+		v8$eval("iwanthue = function(n, force_mode, quality, color_space) {
 			filter_colors = function(color) {
 			    var hcl = color.hcl();
-			    return hcl[0] >= color_space[0][0] && hcl[0] <= color_space[0][1]
-			      && hcl[1] >= color_space[1][0] && hcl[1] <= color_space[1][1]
-			      && hcl[2] >= color_space[2][0] && hcl[2] <= color_space[2][1];
+			    return hcl[0] >= color_space['L'][0] && hcl[0] <= color_space['L'][1]
+			      && hcl[1] >= color_space['C'][0] && hcl[1] <= color_space['C'][1]
+			      && hcl[2] >= color_space['H'][0] && hcl[2] <= color_space['H'][1];
 			}
 			var colors = paletteGenerator.generate(n, filter_colors, force_mode, quality);
 			colors = paletteGenerator.diffSort(colors);
-			colors = _.map(colors, js_color_mapper);
+			colors = _.map(colors, function(color) { return color.hex(); });
 			return JSON.stringify(colors);
 		}")
   	},
-  	palette = function(n, force_mode, quality, color_space, mode, alpha) {
+  	palette = function(n, force_mode, quality = 50, color_space) {
   		"Generate a new iwanthue palette"
   		assert_that(is.numeric(n), length(n) == 1)
   		assert_that(is.logical(force_mode), length(force_mode) == 1)
   		assert_that(is.numeric(quality), length(quality) == 1)
-  		assert_that(is.hcl(color_space))
-  		assert_that(is.character(mode))
+  		assert_that(is.valid_color_space(color_space))
 
-		js_color_mapper <- if (mode == "hex") {
-			"function(color) { return color.hex(); }"
-		} else if (mode == "rgb") {
-			"function(color) { return color.rgb; }"
-		} else {
-			stop("Unsupported mode: ", mode)
-		}
-
-  		json <- v8$call("iwanthue", as.integer(n), force_mode, as.integer(quality), I(js_color_mapper), color_space)
+  		json <- v8$call("iwanthue", as.integer(n), force_mode, as.integer(quality), color_space)
   		jsonlite::fromJSON(json)
   	}
   )
@@ -61,18 +53,14 @@ inwanthueInstance <- function() {
 #' Generate a new iwanthue palette
 #' 
 #' @param n number of colors in the palette.
-#' @param force_mode use force vector algorithm instead of k-means.
 #' @param color_space the upper and lower limts of the hcl colors to put in the palette. Expects a list of three numerics (See \code{\link{hcl_presets}}).
-#' @param quality the number of steps the algorithm should try to improve the color palette.
-#' @param mode the mode of the returned colors. Supported are "hex" (default) and "rgb" at the moment.
+#' @param mode the algorithm to use.
 #' 
-#' @return a new color palette of length \code{n}. Depending on the \code{mode}, the returned object is a vector (hex) or a matrix (rgb).
+#' @return a new rgb hex color palette of length \code{n}.
 #' 
 #' @export
-iwanthue <- function(n = 8, force_mode = FALSE, quality = 50, color_space = hcl_presets$full, mode = "hex", alpha = 1) {
+iwanthue <- function(n = 8, color_space = list(L = c(0,100), C = c(0,100), H = c(0,360)), mode = "ga", ...) {
 	assert_that(is.numeric(n), length(n) == 1)
-	assert_that(is.logical(force_mode), length(force_mode) == 1)
-	assert_that(is.numeric(quality), length(quality) == 1)
 	if (is.character(color_space)) {
 		assert_that(length(color_space) == 1)
 		if (color_space %in% names(hcl_presets)) {
@@ -81,11 +69,15 @@ iwanthue <- function(n = 8, force_mode = FALSE, quality = 50, color_space = hcl_
 			stop("No preset defined for ", color_space)
 		}
 	} else {
-		assert_that(is.hcl(color_space))
+		assert_that(is.valid_color_space(color_space))
 	}
 	assert_that(is.character(mode), length(mode) == 1)
-	assert_that(is.numeric(alpha), length(alpha) == 1, alpha >= 0, alpha <= 1)
 
-	scheme <- inwanthueInstance()
-	scheme$palette(n, force_mode, quality, color_space, mode, alpha)
+	switch(mode,
+	  kmeans = iwanthue.kmeans(n, color_space, ...),
+	  ga = iwanthue.ga(n, color_space, ...),
+	  js_kmeans = inwanthueInstance()$palette(n, force_mode = FALSE, color_space = color_space),
+	  js_force = inwanthueInstance()$palette(n, force_mode = TRUE, color_space = color_space),
+	  stop(sprintf("Unsupported mode: %s", mode))
+	)
 }

@@ -11,12 +11,16 @@ Depends:
 Imports:
     V8 (>= 0.3),
     jsonlite (>= 0.9.12),
-    assertthat(>= 0.1)
+    assertthat(>= 0.1),
+    colorspace(>= 1.2-4),
+    yaImpute(>= 1.0-23)
 License: file LICENSE
 LazyData: true
 Suggests:
     testthat
 Collate:
-    'hcl.r'
+    'color.r'
+    'color_space.r'
+    'iwanthue_native.r'
     'iwanthue.r'
     'rwantshue.r'

@@ -16,6 +16,6 @@ IWantHue palette generator.
 \section{Methods}{
 
 \describe{
-\item{\code{palette(n, force_mode, quality, color_space, js_color_mapper)}}{Generate a new iwanthue palette}
+\item{\code{palette(n, force_mode, quality = 50, color_space)}}{Generate a new iwanthue palette}
 }}
 
