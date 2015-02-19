@@ -12,7 +12,7 @@ iwanthue(n = 8, color_space = list(L = c(0, 100), C = c(0, 100), H = c(0,
 
 \item{color_space}{the upper and lower limts of the hcl colors to put in the palette. Expects a list of three numerics (See \code{\link{hcl_presets}}).}
 
-\item{mode}{the algorithm to use.}
+\item{mode}{the algorithm to use. One of ("ga", "kmenas", "js_kmeans", "js_force")}
 }
 \value{
 a new rgb hex color palette of length \code{n}.

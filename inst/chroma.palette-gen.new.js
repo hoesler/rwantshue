@@ -21,6 +21,13 @@
 // v0.1
  
 var paletteGenerator = {
+	/**
+	 * Returns a random integer between min (inclusive) and max (inclusive)
+	 * Using Math.round() will give you a non-uniform distribution!
+	 */
+	getRandomInt: function (min, max) {
+	    return Math.floor(Math.random() * (max - min + 1)) + min;
+	},
 	generate: function(colorsCount, checkColor, forceMode, quality, ultra_precision) {
 		// Default
 		if(colorsCount === undefined)
@@ -46,14 +53,13 @@ var paletteGenerator = {
 			
 			// Init
 			var vectors = {};
-			var chance = new Chance();
 			for(i=0; i<colorsCount; i++) {
 				// Find a valid Lab color 
 				var color;
 				do {
-					color = [chance.integer({min: 0, max: 100}),
-							 chance.integer({min: -128, max: 128}),
-							 chance.integer({min: -128, max: 128})];
+					color = [paletteGenerator.getRandomInt(0, 100),
+							 paletteGenerator.getRandomInt(-128, 128),
+							 paletteGenerator.getRandomInt(-128, 128)];
 				} while(!checkLab(chroma.lab(color)));
 				colors.push(color);
 			}
@@ -131,14 +137,13 @@ var paletteGenerator = {
 			}
 			
 			var kMeans = [];
-			var chance = new Chance();
 			for(i=0; i<colorsCount; i++) {
 				// Find a valid Lab color 
 				var color;
 				do {
-					color = [chance.integer({min: 0, max: 100}), // l of chroma.lab() in [0, 100.00000386666655]
-							 chance.integer({min: -128, max: 128}), // a of chroma.lab() in [-86.1827164205346, 98.23431188800402]
-							 chance.integer({min: -128, max: 128})]; // b of chroma.lab() in [-107.8601617541481, 94.47797505367026]
+					color = [paletteGenerator.getRandomInt(0, 100), // l of chroma.lab() in [0, 100.00000386666655]
+							 paletteGenerator.getRandomInt(-128, 128), // a of chroma.lab() in [-86.1827164205346, 98.23431188800402]
+							 paletteGenerator.getRandomInt(-128, 128)]; // b of chroma.lab() in [-107.8601617541481, 94.47797505367026]
 				} while(!checkColor2(chroma.lab(color)));
 				kMeans.push(color);
 			}

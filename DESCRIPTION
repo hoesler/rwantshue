@@ -13,7 +13,8 @@ Imports:
     jsonlite (>= 0.9.12),
     assertthat(>= 0.1),
     colorspace(>= 1.2-4),
-    yaImpute(>= 1.0-23)
+    yaImpute(>= 1.0-23),
+    dplyr(>= 0.4.1)
 License: file LICENSE
 LazyData: true
 Suggests:
@@ -22,5 +23,6 @@ Collate:
     'color.r'
     'color_space.r'
     'iwanthue_native.r'
+    'iwanthue_js.r'
     'iwanthue.r'
     'rwantshue.r'
