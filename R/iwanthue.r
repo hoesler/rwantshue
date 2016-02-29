@@ -34,7 +34,7 @@ IWantHue <- setRefClass("IWantHue",
   		assert_that(is.numeric(quality), length(quality) == 1)
   		assert_that(is.hcl(color_space))
   		assert_that(is.character(js_color_mapper))
-  		json <- v8$call("iwanthue", as.integer(n), force_mode, as.integer(quality), I(js_color_mapper), color_space)
+  		json <- v8$call("iwanthue", as.integer(n), force_mode, as.integer(quality), JS(js_color_mapper), color_space)
   		jsonlite::fromJSON(json)
   	},
     hex = function(...) {

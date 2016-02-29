@@ -2,3 +2,4 @@
 ^README-*\.png$
 .*\.sublime-.*$
 .*\.Rproj$
+^\.travis\.yml$

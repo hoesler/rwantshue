@@ -17,6 +17,7 @@ LazyData: true
 Suggests:
     testthat
 Collate:
+    'color_space.r'
     'hcl.r'
     'iwanthue.r'
     'rwantshue.r'
