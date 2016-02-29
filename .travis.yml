@@ -7,4 +7,4 @@ r:
 addons:
   apt:
     packages:
-    - libv8
+    - libv8-3.7.12.22
