@@ -4,7 +4,7 @@ Title: R adaptor for the "I want hue" color palette generator
 Version: 0.0.1.9000
 Authors@R: "Christoph Hösler <christoph.hoesler@gmail.com> [aut, cre]"
 Description: rwantshue is an R adaptor for the "I want hue" color palette
-    generator
+    generator.
 Depends:
     R (>= 3.1.1),
     methods
@@ -17,7 +17,6 @@ LazyData: true
 Suggests:
     testthat
 Collate:
-    'color_space.r'
     'hcl.r'
     'iwanthue.r'
     'rwantshue.r'

@@ -1,4 +1,5 @@
 # rwantshue
+[![Build Status](https://travis-ci.org/hoesler/rwantshue.svg?branch=master)](https://travis-ci.org/hoesler/rwantshue)
 
 > Generate an [i want hue](http://tools.medialab.sciences-po.fr/iwanthue/) color palette in R.
 
