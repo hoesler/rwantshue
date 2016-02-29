@@ -2,17 +2,15 @@ NULL
 
 is.valid_color_space <- function(color_space) {
 	return(is.list(color_space) && length(color_space) == 3
-	&& all(sapply(color_space, function(pair) {is.numeric(pair) && length(pair) == 2}))
-	&& color_space[["L"]][1] < color_space[["L"]][2] && color_space[["L"]][1] >= 0 && color_space[["L"]][2] <= 100
-	&& color_space[["C"]][1] < color_space[["C"]][2] && color_space[["C"]][1] >= 0 && color_space[["C"]][2] <= 100
-	&& color_space[["H"]][1] < color_space[["H"]][2] && color_space[["H"]][1] >= 0 && color_space[["H"]][2] <= 360)
+	&& all(sapply(color_space, function(pair) {is.numeric(pair) && length(pair) == 2})))
 }
 
 #' A list of color space presets as defined in \url{http://tools.medialab.sciences-po.fr/iwanthue/js/presets.js}.
 #' 
 #' @export
 hcl_presets = list(
-	full = list(H = c(0, 360), C = c(0, 100), L = c(0, 100))
+	full = list(H = c(0, 360), C = c(0, 100), L = c(0, 100)),
+	fancy_light = list(H = c(0, 360), C = c(13.333, 40), L = c(66.6, 120))
 	# fancy_light = list(H = c(0, 360), C = c(0.4, 1.2), L = c(1, 1.5)),
 	# fancy_dark = list(H = c(0, 360), C = c(0.2, 1.2), L = c(0.1, 0.6)),
 	# shades = list(H = c(0, 240), C = c(0, 0.4), L = c(0, 1.5)),
