@@ -9,7 +9,7 @@ Depends:
     R (>= 3.1.1),
     methods
 Imports:
-    V8 (>= 0.3),
+    V8 (>= 0.6),
     jsonlite (>= 0.9.12),
     assertthat(>= 0.1)
 License: file LICENSE
