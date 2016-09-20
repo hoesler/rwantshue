@@ -12,6 +12,8 @@ devtools::install_github("hoesler/rwantshue")
 
 ## Usage
 ```
+library('rwantshue')
+
 # create a color scheme object
 scheme <- iwanthue()
 
