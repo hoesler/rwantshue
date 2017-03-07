@@ -59,6 +59,8 @@ IWantHue <- setRefClass("IWantHue",
 singletonEnv <- new.env()
 
 #' IWantHue instance accessor
+#' @param seed The seed for the rng
+#' @param force_init If true, force recreation of the instance
 inwanthueInstance <- function(seed, force_init) {
 	if (force_init == TRUE || !exists("IWantHueInstance", envir = singletonEnv)) {
 		assign("IWantHueInstance", IWantHue$new(V8::new_context(), seed), envir = singletonEnv)		
@@ -67,8 +69,7 @@ inwanthueInstance <- function(seed, force_init) {
 }
 
 #' Get the \linkS4class{IWantHue} instance.
-#' @param seed The seed for the rng
-#' @param force_init If true, force recreation of the instance
+#' @inheritParams inwanthueInstance
 #' 
 #' @export
 iwanthue <- function(seed = NULL, force_init = FALSE) {
