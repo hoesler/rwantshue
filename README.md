@@ -6,16 +6,17 @@
 ## Install
 Use [devtools](https://github.com/hadley/devtools) to install:
 
-```
+```R
 devtools::install_github("hoesler/rwantshue")
 ```
 
 ## Usage
-```
+```R
 library('rwantshue')
 
 # create a color scheme object
-scheme <- iwanthue()
+scheme <- iwanthue() # get the iwanthue singleton
+scheme <- iwanthue(seed = 42, force_init = TRUE) # recreate with a seed
 
 # generate a new color palette (vector of hex values) with presets...
 scheme$hex(10)
