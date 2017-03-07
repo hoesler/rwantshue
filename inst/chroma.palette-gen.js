@@ -21,7 +21,7 @@
 // v0.1
  
 var paletteGenerator = {
-	generate: function(colorsCount, checkColor, forceMode, quality, ultra_precision){
+	generate: function(colorsCount, checkColor, forceMode, quality, ultra_precision, rng_fun){
 		// Default
 		if(colorsCount === undefined)
 			colorsCount = 8;
@@ -31,6 +31,8 @@ var paletteGenerator = {
 			forceMode = false;
 		if(quality === undefined)
 			quality = 50;
+		if(rng_fun === undefined)
+			rng_fun = Math.random;
 		ultra_precision = ultra_precision || false
 
 		if(forceMode){
@@ -48,9 +50,9 @@ var paletteGenerator = {
 			var vectors = {};
 			for(i=0; i<colorsCount; i++){
 				// Find a valid Lab color
-				var color = [Math.random(),2*Math.random()-1,2*Math.random()-1];
+				var color = [rng_fun(),2*rng_fun()-1,2*rng_fun()-1];
 				while(!checkLab(color)){
-					color = [Math.random(),2*Math.random()-1,2*Math.random()-1];
+					color = [rng_fun(),2*rng_fun()-1,2*rng_fun()-1];
 				}
 				colors.push(color);
 			}
@@ -87,9 +89,9 @@ var paletteGenerator = {
 							vectors[j].db -= db * force / d;
 						} else {
 							// Jitter
-							vectors[j].dl += 0.02 - 0.04 * Math.random();
-							vectors[j].da += 0.02 - 0.04 * Math.random();
-							vectors[j].db += 0.02 - 0.04 * Math.random();
+							vectors[j].dl += 0.02 - 0.04 * rng_fun();
+							vectors[j].da += 0.02 - 0.04 * rng_fun();
+							vectors[j].db += 0.02 - 0.04 * rng_fun();
 						}
 					}
 				}
@@ -120,9 +122,9 @@ var paletteGenerator = {
 			
 			var kMeans = [];
 			for(i=0; i<colorsCount; i++){
-				var lab = [Math.random(),2*Math.random()-1,2*Math.random()-1];
+				var lab = [rng_fun(),2*rng_fun()-1,2*rng_fun()-1];
 				while(!checkColor2(chroma.lab(lab))){
-					lab = [Math.random(),2*Math.random()-1,2*Math.random()-1];
+					lab = [rng_fun(),2*rng_fun()-1,2*rng_fun()-1];
 				}
 				kMeans.push(lab);
 			}
