@@ -9,7 +9,7 @@ test_that("hex creates a vector of hex values", {
 
   # then
   expect_is(palette, "character")
-  expect_match(palette, "#[0-9A-F]{6}")
+  expect_match(palette, "#[0-9a-f]{6}")
 })
 
 test_that("hex creates the correct number of colors", {
@@ -54,7 +54,7 @@ test_that("palette method aceepts a valid color space", {
   scheme <- iwanthue()
   
   # when
-  palette <- scheme$palette(color_space = list(c(0, 360), c(0, 3), c(0, 1.5)))
+  palette <- scheme$palette(color_space = list(c(0,360), c(0,100), c(0,100)))
 
   # then
   expect_is(palette, "character")

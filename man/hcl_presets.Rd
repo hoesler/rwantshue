@@ -4,7 +4,7 @@
 \name{hcl_presets}
 \alias{hcl_presets}
 \title{A list of color space presets as defined in \url{http://tools.medialab.sciences-po.fr/iwanthue/js/presets.js}.}
-\format{An object of class \code{list} of length 17.}
+\format{An object of class \code{list} of length 19.}
 \usage{
 hcl_presets
 }

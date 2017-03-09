@@ -10,9 +10,9 @@ IWantHue <- setRefClass("IWantHue",
   methods = list(
   	initialize = function(context, seed) {
   		v8 <<- context;
-		v8$source(system.file("chroma.js", package = "rwantshue"))
-		v8$source(system.file("chroma.palette-gen.js", package = "rwantshue"))
-		v8$source(system.file("lodash.js", package = "rwantshue"))
+		v8$source(system.file("chroma-1.1.1.min.js", package = "rwantshue"))
+		v8$source(system.file("chroma.palette-gen-0.2.js", package = "rwantshue"))
+		v8$source(system.file("lodash-2.4.1.js", package = "rwantshue"))
 		v8$source(system.file("mersenne-twister.js", package = "rwantshue"))
 		if (is.numeric(seed)) {
 			v8$assign("seed", as.integer(seed))
@@ -23,11 +23,13 @@ IWantHue <- setRefClass("IWantHue",
 		v8$eval("iwanthue = function(n, force_mode, quality, js_color_mapper, color_space) {
 			filter_colors = function(color) {
 			    var hcl = color.hcl();
-			    return hcl[0] >= color_space[0][0] && hcl[0] <= color_space[0][1]
+			    var accepted = hcl[0] >= color_space[0][0] && hcl[0] <= color_space[0][1]
 			      && hcl[1] >= color_space[1][0] && hcl[1] <= color_space[1][1]
 			      && hcl[2] >= color_space[2][0] && hcl[2] <= color_space[2][1];
+			    //console.log((accepted ? '+' : '-') + '[' + hcl.toString() + ']')
+			    return accepted;
 			}
-			var colors = paletteGenerator.generate(n, filter_colors, force_mode, quality, false, rng.random.bind(rng));
+			var colors = paletteGenerator.generate(n, filter_colors, force_mode, quality, false, undefined, rng.random.bind(rng));
 			colors = paletteGenerator.diffSort(colors);
 			colors = _.map(colors, js_color_mapper);
 			return JSON.stringify(colors);
@@ -50,7 +52,7 @@ IWantHue <- setRefClass("IWantHue",
 	},
 	rgb = function(...) {
 		"Generate a matrix of colors in rgb format"
-		.self$palette(..., js_color_mapper = "function(color) { return color.rgb; }")
+		.self$palette(..., js_color_mapper = "function(color) { return color.rgb(); }")
 	}
   )
 )

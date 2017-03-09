@@ -25,8 +25,8 @@ scheme$hex(10, color_space = hcl_presets$fluo)
 # ... or make custom adjustments:
 color_space <- list(
 	c(330, 360),	# hue range [0,360]
-	c(0, 3),		# chroma range [0,3]
-	c(0, 1.5))		# lightness range [0,1.5]
+	c(0, 100),		# chroma range [0,100]
+	c(0, 100))		# lightness range [0,100]
 palette <- scheme$hex(
 	n = 8,
 	force_mode = FALSE,
